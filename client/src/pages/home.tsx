@@ -6,6 +6,7 @@ import PortfolioSummary from "@/components/portfolio-summary";
 import PortfolioAnalytics from "@/components/portfolio-analytics";
 import RecentWallets from "@/components/recent-wallets";
 import SavedWallets from "@/components/saved-wallets";
+import EnhancedSavedWallets from "@/components/enhanced-saved-wallets";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Tabs as TabsComponent, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { type WalletBalance } from "@shared/schema";
@@ -186,7 +187,7 @@ export default function Home() {
           </TabsList>
           
           <TabsContent value="saved" className="mt-6">
-            <SavedWallets />
+            <EnhancedSavedWallets />
           </TabsContent>
           
           <TabsContent value="recent" className="mt-6">

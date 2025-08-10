@@ -27,9 +27,10 @@ export function formatUSDValue(value: string): string {
   }).format(num);
 }
 
-export function getTimeAgo(date: Date): string {
+export function getTimeAgo(date: Date | string): string {
   const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
+  const dateObj = (date instanceof Date) ? date : new Date(date);
+  const diffMs = now.getTime() - dateObj.getTime();
   const diffMins = Math.floor(diffMs / 60000);
   
   if (diffMins < 1) return "Just now";

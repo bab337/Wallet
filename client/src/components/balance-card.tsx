@@ -15,7 +15,7 @@ export default function BalanceCard({ balance, index }: BalanceCardProps) {
 
   return (
     <div 
-      className="bg-white rounded-xl card-shadow hover:card-shadow-hover transition-all duration-300 p-6 animate-fade-in"
+      className="bg-white dark:bg-gray-800 rounded-xl card-shadow hover:card-shadow-hover transition-all duration-300 p-6 animate-fade-in border-gray-200 dark:border-gray-700"
       style={{ animationDelay: `${index * 0.1}s` }}
       data-testid={`card-balance-${balance.network}`}
     >
@@ -34,10 +34,10 @@ export default function BalanceCard({ balance, index }: BalanceCardProps) {
             )}
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 capitalize" data-testid={`text-network-${balance.network}`}>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 capitalize" data-testid={`text-network-${balance.network}`}>
               {balance.network}
             </h3>
-            <p className="text-sm text-gray-500" data-testid={`text-symbol-${balance.network}`}>
+            <p className="text-sm text-gray-500 dark:text-gray-400" data-testid={`text-symbol-${balance.network}`}>
               {balance.symbol}
             </p>
           </div>
@@ -55,27 +55,27 @@ export default function BalanceCard({ balance, index }: BalanceCardProps) {
       <div className="space-y-3">
         <div>
           <p 
-            className="text-2xl font-bold text-gray-900" 
+            className="text-2xl font-bold text-gray-900 dark:text-gray-100" 
             data-testid={`text-balance-${balance.network}`}
           >
             {formatBalance(balance.balance)} {balance.symbol}
           </p>
           <p 
-            className="text-sm text-gray-600" 
+            className="text-sm text-gray-600 dark:text-gray-400" 
             data-testid={`text-usd-value-${balance.network}`}
           >
             ≈ {formatUSDValue(balance.usdValue)}
           </p>
         </div>
         
-        <div className="pt-3 border-t border-gray-100">
+        <div className="pt-3 border-t border-gray-100 dark:border-gray-700">
           <div className="flex justify-between text-sm">
-            <span className="text-gray-500">Network</span>
-            <span className="text-gray-900 capitalize">{balance.network}</span>
+            <span className="text-gray-500 dark:text-gray-400">Network</span>
+            <span className="text-gray-900 dark:text-gray-100 capitalize">{balance.network}</span>
           </div>
           <div className="flex justify-between text-sm mt-1">
-            <span className="text-gray-500">Last Updated</span>
-            <span className="text-gray-900" data-testid={`text-last-updated-${balance.network}`}>
+            <span className="text-gray-500 dark:text-gray-400">Last Updated</span>
+            <span className="text-gray-900 dark:text-gray-100" data-testid={`text-last-updated-${balance.network}`}>
               {getTimeAgo(balance.lastUpdated)}
             </span>
           </div>

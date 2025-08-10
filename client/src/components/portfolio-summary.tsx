@@ -35,11 +35,11 @@ export default function PortfolioSummary({ balances, totalValue }: PortfolioSumm
   };
 
   return (
-    <div className="bg-white rounded-xl card-shadow p-6 mb-8" data-testid="portfolio-summary">
+    <div className="bg-white dark:bg-gray-800 rounded-xl card-shadow p-6 mb-8 border border-gray-200 dark:border-gray-700 transition-colors" data-testid="portfolio-summary">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-gray-900">Portfolio Summary</h3>
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Portfolio Summary</h3>
         <button 
-          className="text-primary hover:text-blue-700 text-sm font-medium"
+          className="text-primary dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium"
           data-testid="button-view-details"
         >
           <ExternalLink className="h-4 w-4 mr-1 inline" />
@@ -50,37 +50,37 @@ export default function PortfolioSummary({ balances, totalValue }: PortfolioSumm
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="text-center">
           <p 
-            className="text-3xl font-bold text-gray-900" 
+            className="text-3xl font-bold text-gray-900 dark:text-gray-100" 
             data-testid="text-total-value"
           >
             {formatUSDValue(totalValue.toString())}
           </p>
-          <p className="text-sm text-gray-600">Total Portfolio Value</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Total Portfolio Value</p>
         </div>
         
         <div className="text-center">
           <p 
-            className="text-3xl font-bold text-success" 
+            className="text-3xl font-bold text-success dark:text-green-400" 
             data-testid="text-total-gain"
           >
             +$0.00
           </p>
-          <p className="text-sm text-gray-600">24h Change</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">24h Change</p>
         </div>
         
         <div className="text-center">
           <p 
-            className="text-3xl font-bold text-success" 
+            className="text-3xl font-bold text-success dark:text-green-400" 
             data-testid="text-total-gain-percent"
           >
             +0.00%
           </p>
-          <p className="text-sm text-gray-600">24h Change %</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">24h Change %</p>
         </div>
       </div>
 
-      <div className="mt-6 pt-6 border-t border-gray-100">
-        <h4 className="text-sm font-semibold text-gray-700 mb-4">Asset Allocation</h4>
+      <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">Asset Allocation</h4>
         <div className="space-y-3">
           {balances.map((balance) => (
             <div 
@@ -90,11 +90,11 @@ export default function PortfolioSummary({ balances, totalValue }: PortfolioSumm
             >
               <div className="flex items-center space-x-3">
                 <div className={`w-4 h-4 rounded ${getNetworkColor(balance.network)}`}></div>
-                <span className="text-sm text-gray-600 capitalize">
+                <span className="text-sm text-gray-600 dark:text-gray-400 capitalize">
                   {balance.network} ({balance.symbol})
                 </span>
               </div>
-              <span className="text-sm font-medium text-gray-900">
+              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
                 {calculateAllocation(balance)}%
               </span>
             </div>
