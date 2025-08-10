@@ -99,6 +99,11 @@ export default function WalletForm({ onBalanceUpdate, onLoadingChange, onError }
                           <SelectItem value="arbitrum">Arbitrum</SelectItem>
                           <SelectItem value="avalanche">Avalanche</SelectItem>
                           <SelectItem value="optimism">Optimism</SelectItem>
+                          <SelectItem value="fantom">Fantom</SelectItem>
+                          <SelectItem value="harmony">Harmony</SelectItem>
+                          <SelectItem value="moonriver">Moonriver</SelectItem>
+                          <SelectItem value="cronos">Cronos</SelectItem>
+                          <SelectItem value="solana">Solana</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />

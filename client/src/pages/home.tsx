@@ -3,8 +3,10 @@ import { Settings, HelpCircle, Wallet, History } from "lucide-react";
 import WalletForm from "@/components/wallet-form";
 import BalanceCard from "@/components/balance-card";
 import PortfolioSummary from "@/components/portfolio-summary";
+import PortfolioAnalytics from "@/components/portfolio-analytics";
 import RecentWallets from "@/components/recent-wallets";
 import SavedWallets from "@/components/saved-wallets";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Tabs as TabsComponent, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { type WalletBalance } from "@shared/schema";
 
@@ -30,9 +32,9 @@ export default function Home() {
   }, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
@@ -40,19 +42,20 @@ export default function Home() {
                 <Wallet className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-gray-900">WalletCheck</h1>
-                <p className="text-xs text-gray-500">MultiChain Balance Checker</p>
+                <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">WalletCheck</h1>
+                <p className="text-xs text-gray-500 dark:text-gray-400">MultiChain Balance Checker</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
+              <ThemeToggle />
               <button 
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
                 data-testid="button-help"
               >
                 <HelpCircle className="h-5 w-5" />
               </button>
               <button 
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
                 data-testid="button-settings"
               >
                 <Settings className="h-5 w-5" />
@@ -161,8 +164,12 @@ export default function Home() {
         )}
 
         {/* Portfolio Summary */}
+        {/* Portfolio Analytics and Summary */}
         {!isLoading && balances.length > 0 && (
-          <PortfolioSummary balances={balances} totalValue={totalUSDValue} />
+          <>
+            <PortfolioAnalytics balances={balances} totalValue={totalUSDValue} />
+            <PortfolioSummary balances={balances} totalValue={totalUSDValue} />
+          </>
         )}
 
         {/* Wallet Management Tabs */}
