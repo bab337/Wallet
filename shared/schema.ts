@@ -32,7 +32,7 @@ export const insertBalanceSchema = createInsertSchema(balances).omit({
 
 export const walletCheckSchema = z.object({
   address: z.string().min(1, "Address is required"),
-  network: z.enum(["ethereum", "bitcoin", "polygon", "bsc"]),
+  network: z.enum(["ethereum", "bitcoin", "polygon", "bsc", "arbitrum", "avalanche", "optimism"]),
 });
 
 export type InsertWallet = z.infer<typeof insertWalletSchema>;
@@ -47,7 +47,28 @@ export interface WalletBalance {
   balance: string;
   usdValue: string;
   symbol: string;
+  logoUrl?: string;
   lastUpdated: Date;
   isValid: boolean;
   error?: string;
 }
+
+export interface SavedWallet {
+  id: string;
+  label: string;
+  address: string;
+  network: string;
+  balance?: string;
+  usdValue?: string;
+  logoUrl?: string;
+  lastUpdated?: Date;
+  isActive: boolean;
+}
+
+export const savedWalletSchema = z.object({
+  label: z.string().min(1, "Label is required"),
+  address: z.string().min(1, "Address is required"),
+  network: z.enum(["ethereum", "bitcoin", "polygon", "bsc", "arbitrum", "avalanche", "optimism"]),
+});
+
+export type SavedWalletInput = z.infer<typeof savedWalletSchema>;

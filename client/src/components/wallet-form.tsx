@@ -96,6 +96,9 @@ export default function WalletForm({ onBalanceUpdate, onLoadingChange, onError }
                           <SelectItem value="bitcoin">Bitcoin</SelectItem>
                           <SelectItem value="polygon">Polygon</SelectItem>
                           <SelectItem value="bsc">Binance Smart Chain</SelectItem>
+                          <SelectItem value="arbitrum">Arbitrum</SelectItem>
+                          <SelectItem value="avalanche">Avalanche</SelectItem>
+                          <SelectItem value="optimism">Optimism</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -130,11 +133,16 @@ export default function WalletForm({ onBalanceUpdate, onLoadingChange, onError }
               <div className="lg:col-span-1 flex items-end">
                 <Button
                   type="submit"
-                  className="w-full bg-primary hover:bg-blue-700"
+                  className="w-full bg-primary hover:bg-blue-700 disabled:opacity-50"
+                  disabled={form.formState.isSubmitting}
                   data-testid="button-check-balance"
                 >
-                  <Search className="h-4 w-4 mr-2" />
-                  Check Balance
+                  {form.formState.isSubmitting ? (
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  ) : (
+                    <Search className="h-4 w-4 mr-2" />
+                  )}
+                  {form.formState.isSubmitting ? "Checking..." : "Check Balance"}
                 </Button>
               </div>
             </div>

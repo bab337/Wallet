@@ -5,6 +5,9 @@ export function validateAddress(address: string, network: string): boolean {
     case "ethereum":
     case "polygon":
     case "bsc":
+    case "arbitrum":
+    case "avalanche":
+    case "optimism":
       // Ethereum-compatible address validation
       return /^0x[a-fA-F0-9]{40}$/.test(address);
       
@@ -29,6 +32,12 @@ export function getNetworkIcon(network: string): string {
       return "fas fa-gem";
     case "bsc":
       return "fas fa-coins";
+    case "arbitrum":
+      return "fas fa-layer-group";
+    case "avalanche":
+      return "fas fa-mountain";
+    case "optimism":
+      return "fas fa-bolt";
     default:
       return "fas fa-wallet";
   }
@@ -44,6 +53,12 @@ export function getNetworkColor(network: string): string {
       return "bg-purple-100 text-purple-600";
     case "bsc":
       return "bg-yellow-100 text-yellow-600";
+    case "arbitrum":
+      return "bg-cyan-100 text-cyan-600";
+    case "avalanche":
+      return "bg-red-100 text-red-600";
+    case "optimism":
+      return "bg-rose-100 text-rose-600";
     default:
       return "bg-gray-100 text-gray-600";
   }

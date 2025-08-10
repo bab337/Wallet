@@ -23,6 +23,12 @@ export default function PortfolioSummary({ balances, totalValue }: PortfolioSumm
         return "bg-purple-500";
       case "bsc":
         return "bg-yellow-500";
+      case "arbitrum":
+        return "bg-cyan-500";
+      case "avalanche":
+        return "bg-red-500";
+      case "optimism":
+        return "bg-rose-500";
       default:
         return "bg-gray-500";
     }

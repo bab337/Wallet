@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Settings, HelpCircle, Wallet } from "lucide-react";
+import { Settings, HelpCircle, Wallet, History } from "lucide-react";
 import WalletForm from "@/components/wallet-form";
 import BalanceCard from "@/components/balance-card";
 import PortfolioSummary from "@/components/portfolio-summary";
 import RecentWallets from "@/components/recent-wallets";
+import SavedWallets from "@/components/saved-wallets";
+import { Tabs as TabsComponent, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { type WalletBalance } from "@shared/schema";
 
 export default function Home() {
@@ -68,59 +70,76 @@ export default function Home() {
           onError={setError}
         />
 
-        {/* Error State */}
+        {/* Enhanced Error State */}
         {error && (
-          <div className="mb-8">
-            <div className="bg-white rounded-xl card-shadow p-8 text-center">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i className="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+          <div className="mb-8 animate-fade-in">
+            <div className="bg-white rounded-xl border-l-4 border-red-500 p-6">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                    <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="ml-4 flex-1">
+                  <h3 className="text-sm font-semibold text-red-800">Unable to Fetch Balance</h3>
+                  <p className="mt-1 text-sm text-red-700" data-testid="text-error-message">
+                    {error}
+                  </p>
+                  <div className="mt-4">
+                    <button 
+                      className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                      onClick={() => setError(null)}
+                      data-testid="button-retry"
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to Fetch Balance</h3>
-              <p className="text-gray-600 mb-6" data-testid="text-error-message">
-                {error}
-              </p>
-              <button 
-                className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                onClick={() => setError(null)}
-                data-testid="button-retry"
-              >
-                <i className="fas fa-redo mr-2"></i>Try Again
-              </button>
             </div>
           </div>
         )}
 
-        {/* Loading State */}
+        {/* Enhanced Loading State */}
         {isLoading && (
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
             {Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="bg-white rounded-xl card-shadow p-6">
+              <div key={index} className="bg-white rounded-xl card-shadow p-6 animate-fade-in">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gray-200 rounded-full animate-skeleton"></div>
+                    <div className="w-10 h-10 bg-gray-200 rounded-full shimmer"></div>
                     <div>
-                      <div className="h-4 bg-gray-200 rounded animate-skeleton w-20 mb-1"></div>
-                      <div className="h-3 bg-gray-200 rounded animate-skeleton w-12"></div>
+                      <div className="h-4 bg-gray-200 rounded shimmer w-20 mb-2"></div>
+                      <div className="h-3 bg-gray-200 rounded shimmer w-12"></div>
                     </div>
                   </div>
-                  <div className="h-5 bg-gray-200 rounded animate-skeleton w-16"></div>
+                  <div className="h-5 bg-gray-200 rounded shimmer w-16"></div>
                 </div>
                 
                 <div className="space-y-3">
                   <div>
-                    <div className="h-8 bg-gray-200 rounded animate-skeleton w-32 mb-2"></div>
-                    <div className="h-4 bg-gray-200 rounded animate-skeleton w-24"></div>
+                    <div className="h-8 bg-gray-200 rounded shimmer w-32 mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded shimmer w-24"></div>
                   </div>
                   
                   <div className="pt-3 border-t border-gray-100">
                     <div className="flex justify-between mb-2">
-                      <div className="h-3 bg-gray-200 rounded animate-skeleton w-16"></div>
-                      <div className="h-3 bg-gray-200 rounded animate-skeleton w-12"></div>
+                      <div className="h-3 bg-gray-200 rounded shimmer w-16"></div>
+                      <div className="h-3 bg-gray-200 rounded shimmer w-12"></div>
                     </div>
                     <div className="flex justify-between">
-                      <div className="h-3 bg-gray-200 rounded animate-skeleton w-20"></div>
-                      <div className="h-3 bg-gray-200 rounded animate-skeleton w-16"></div>
+                      <div className="h-3 bg-gray-200 rounded shimmer w-20"></div>
+                      <div className="h-3 bg-gray-200 rounded shimmer w-16"></div>
                     </div>
+                  </div>
+                </div>
+                
+                <div className="mt-4 text-center">
+                  <div className="inline-flex items-center text-sm text-gray-500">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary mr-2"></div>
+                    Fetching balance data...
                   </div>
                 </div>
               </div>
@@ -146,8 +165,27 @@ export default function Home() {
           <PortfolioSummary balances={balances} totalValue={totalUSDValue} />
         )}
 
-        {/* Recent Wallets */}
-        <RecentWallets />
+        {/* Wallet Management Tabs */}
+        <TabsComponent defaultValue="saved" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="saved" data-testid="tab-saved-wallets">
+              <Wallet className="h-4 w-4 mr-2" />
+              My Wallets
+            </TabsTrigger>
+            <TabsTrigger value="recent" data-testid="tab-recent-checks">
+              <History className="h-4 w-4 mr-2" />
+              Recent Checks
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="saved" className="mt-6">
+            <SavedWallets />
+          </TabsContent>
+          
+          <TabsContent value="recent" className="mt-6">
+            <RecentWallets />
+          </TabsContent>
+        </TabsComponent>
       </div>
     </div>
   );

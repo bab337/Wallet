@@ -1,6 +1,7 @@
 import { getNetworkIcon, getNetworkColor } from "@/lib/address-validator";
 import { formatBalance, formatUSDValue, getTimeAgo } from "@/lib/blockchain-api";
 import { type WalletBalance } from "@shared/schema";
+import { useState } from "react";
 
 interface BalanceCardProps {
   balance: WalletBalance;
@@ -10,6 +11,7 @@ interface BalanceCardProps {
 export default function BalanceCard({ balance, index }: BalanceCardProps) {
   const iconClass = getNetworkIcon(balance.network);
   const colorClass = getNetworkColor(balance.network);
+  const [imageError, setImageError] = useState(false);
 
   return (
     <div 
@@ -20,7 +22,16 @@ export default function BalanceCard({ balance, index }: BalanceCardProps) {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className={`w-10 h-10 rounded-full flex items-center justify-center ${colorClass}`}>
-            <i className={`${iconClass} text-lg`}></i>
+            {balance.logoUrl && !imageError ? (
+              <img 
+                src={balance.logoUrl} 
+                alt={`${balance.symbol} logo`}
+                className="w-6 h-6 rounded-full"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <i className={`${iconClass} text-lg`}></i>
+            )}
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 capitalize" data-testid={`text-network-${balance.network}`}>
@@ -31,9 +42,13 @@ export default function BalanceCard({ balance, index }: BalanceCardProps) {
             </p>
           </div>
         </div>
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-          <i className="fas fa-circle text-green-400 mr-1" style={{ fontSize: '6px' }}></i>
-          Connected
+        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+          balance.isValid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+        }`}>
+          <div className={`w-1.5 h-1.5 rounded-full mr-1 ${
+            balance.isValid ? 'bg-green-400' : 'bg-red-400'
+          }`}></div>
+          {balance.isValid ? 'Active' : 'Error'}
         </span>
       </div>
       
